@@ -38,11 +38,6 @@ after_build:
 test_script:
 - dotnet test --configuration Release --test-adapter-path:. --logger:Appveyor
 
-after_test:
-- ps: ReportGenerator\tools\net47\ReportGenerator.exe -reports:coverage.xml -targetdir:coverage-report -historydir:coverage-history -reporttypes:HTML -verbosity:Info -assemblyfilters:"-Excluded MoreLinq.*"
-- 7z a coverage.zip coverage.xml coverage-report/*
-- ps: Push-AppveyorArtifact coverage.zip -DeploymentName Coverage
-
 artifacts:
 - path: EliteLogAgent\bin\Any CPU\Release\net5.0-windows\publish
   name: ClickOnce
