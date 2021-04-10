@@ -29,7 +29,7 @@ install:
 - cmd: nuget install -ExcludeVersion ReportGenerator
 
 build_script:
-- msbuild EliteLogAgent\EliteLogAgent.csproj /t:Publish /p:PublishProfile=ClickOnceProfile /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
+- msbuild EliteLogAgent\EliteLogAgent.csproj /t:Publish /p:PublishProfile=EliteLogAgent\Properties\PublishProfiles\ClickOnceProfile.pubxml /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
 
 after_build:
 - 7z a ELA.Portable.%APPVEYOR_BUILD_VERSION%.zip "%CD%\EliteLogAgent\bin\Any CPU\Release\net5.0-windows\publish\EliteLogAgent.exe"
