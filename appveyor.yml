@@ -32,8 +32,7 @@ build_script:
 - msbuild EliteLogAgent\EliteLogAgent.csproj /t:Publish /p:PublishProfile=ClickOnceProfile /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
 
 after_build:
-- cmd: mkdir portable
-- 7z a ELA.Portable.%APPVEYOR_BUILD_VERSION%.zip %CD%\portable\EliteLogAgent.exe
+- 7z a ELA.Portable.%APPVEYOR_BUILD_VERSION%.zip "%CD%\EliteLogAgent\bin\Any CPU\Release\net5.0-windows\publish\EliteLogAgent.exe"
 - ps: Push-AppveyorArtifact "ELA.Portable.$env:APPVEYOR_BUILD_VERSION.zip" -DeploymentName Portable
 
 test_script:
@@ -44,17 +43,14 @@ after_test:
 - 7z a coverage.zip coverage.xml coverage-report/*
 - ps: Push-AppveyorArtifact coverage.zip -DeploymentName Coverage
 
+artifacts:
+- path: EliteLogAgent\bin\Any CPU\Release\net5.0-windows\publish
+  name: ClickOnce
 
 for:
 - branches:
     only: 
     - prod
-  build_script:
-  - ps: Import-PfxCertificate -FilePath EliteLogAgent\code-signing.pfx -CertStoreLocation Cert:\CurrentUser\My -Password $(ConvertTo-SecureString "$env:PFX_PASSWORD" -AsPlainText -Force)
-  - msbuild EliteLogAgent.sln /verbosity:minimal /m /target:Rebuild;Publish /p:Configuration=Release /p:Platform="Any CPU" /p:PublishProfile=Release /p:SignManifests=true /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION% /p:MinimumRequiredVersion=%APPVEYOR_BUILD_VERSION%
-  artifacts:
-  - path: EliteLogAgent\bin\Release\app.publish
-    name: Clickonce
   deploy:
   - provider: AzureBlob
     artifact: Clickonce
