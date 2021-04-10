@@ -36,7 +36,7 @@ after_build:
 - ps: Push-AppveyorArtifact "ELA.Portable.$env:APPVEYOR_BUILD_VERSION.zip" -DeploymentName Portable
 
 test_script:
-- .\OpenCover\tools\OpenCover.Console.exe -returntargetcode -register:user -target:"nunit3-console.exe" -targetargs:"DW.ELA.UnitTests\bin\Release\DW.ELA.UnitTests.dll" -filter:"+[*]* -[*]NUnit* -[Moq*]*" -excludebyattribute:NUnit.Framework.ExplicitAttribute -output:"coverage.xml"
+- dotnet test --configuration Release --test-adapter-path:. --logger:Appveyor
 
 after_test:
 - ps: ReportGenerator\tools\net47\ReportGenerator.exe -reports:coverage.xml -targetdir:coverage-report -historydir:coverage-history -reporttypes:HTML -verbosity:Info -assemblyfilters:"-Excluded MoreLinq.*"
