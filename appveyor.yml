@@ -8,7 +8,6 @@ skip_branch_with_pr: true
 
 cache:
   - packages -> **\packages.config
-  - ILMerge -> appveyor.yml
   - OpenCover -> appveyor.yml
   - ReportGenerator -> appveyor.yml
   - coverage-history -> appveyor.yml
@@ -25,8 +24,7 @@ assembly_info:
   assembly_informational_version: $(appveyor_build_version)
 
 install:
-- cmd: nuget restore
-- cmd: nuget install -ExcludeVersion ILMerge -Version 3.0.21
+- cmd: dotnet restore
 - cmd: nuget install -ExcludeVersion OpenCover
 - cmd: nuget install -ExcludeVersion ReportGenerator
 
@@ -35,7 +33,6 @@ build_script:
 
 after_build:
 - cmd: mkdir portable
-- .\ILMerge\tools\net452\ilmerge.exe /ndebug /wildcards /out:portable\EliteLogAgent.exe EliteLogAgent\bin\Release\EliteLogAgent.exe EliteLogAgent\bin\Release\*.dll
 - 7z a ELA.Portable.%APPVEYOR_BUILD_VERSION%.zip %CD%\portable\EliteLogAgent.exe
 - ps: Push-AppveyorArtifact "ELA.Portable.$env:APPVEYOR_BUILD_VERSION.zip" -DeploymentName Portable
 
