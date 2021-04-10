@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="CannedEvents.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="Moq" Version="4.16.1" />
     <PackageReference Include="morelinq" Version="3.3.2" />
@@ -27,6 +32,10 @@
     <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj" />
     <ProjectReference Include="..\Plugin.EDSM\DW.ELA.Plugin.EDSM.csproj" />
     <ProjectReference Include="..\Plugin.Inara\DW.ELA.Plugin.Inara.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="CannedEvents.json" />
   </ItemGroup>
 
 </Project>
