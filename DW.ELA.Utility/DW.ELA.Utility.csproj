@@ -1,86 +1,22 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{93DCDB11-335D-400C-BD87-554A0C1E2CEE}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DW.ELA.Utility</RootNamespace>
-    <AssemblyName>DW.ELA.Utility</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <LangVersion>8.0</LangVersion>
-    <NullableContextOptions>enable</NullableContextOptions>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Include="App\AppInfo.cs" />
-    <Compile Include="App\EliteDangerous.cs" />
-    <Compile Include="CloudApiLogTarget.cs" />
-    <Compile Include="Disposable\CompositeDisposable.cs" />
-    <Compile Include="Extensions\DictionaryExtensions.cs" />
-    <Compile Include="Extensions\ExceptionExtensions.cs" />
-    <Compile Include="Extensions\Functional.cs" />
-    <Compile Include="Json\JObjectExtensions.cs" />
-    <Compile Include="Logging\LoggingTimer.cs" />
-    <Compile Include="Observable\BasicObservable.cs" />
-    <Compile Include="Json\Converter.cs" />
-    <Compile Include="PluginSettingsFacade.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Json\Serialize.cs" />
-    <Compile Include="Rest\ThrottlingRestClient.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj">
-      <Project>{FD518ED2-7A6E-42F7-8C90-603235C1FEE6}</Project>
-      <Name>DW.ELA.Interfaces</Name>
-    </ProjectReference>
-  </ItemGroup>
+
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
+      <Version>13.0.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
+      <Version>4.7.9</Version>
     </PackageReference>
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj" />
+  </ItemGroup>
+
 </Project>

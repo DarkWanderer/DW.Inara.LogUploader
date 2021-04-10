@@ -1,158 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0AD6B8EF-081E-4867-B442-9AD1823642F1}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DW.ELA.UnitTests</RootNamespace>
-    <AssemblyName>DW.ELA.UnitTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-    <TargetFrameworkProfile />
-    <LangVersion>8.0</LangVersion>
-    <NullableContextOptions>enable</NullableContextOptions>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Windows" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
-    <Reference Include="WindowsBase" />
+    <PackageReference Include="Moq" Version="4.16.1" />
+    <PackageReference Include="morelinq" Version="3.3.2" />
+    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Include="AbstractPluginTests.cs" />
-    <Compile Include="DictionaryExtensionsTests.cs" />
-    <Compile Include="EDDN\EddnIntegrationTest.cs" />
-    <Compile Include="Controller\NLogSettingsManagerTests.cs" />
-    <Compile Include="EDDN\EddnEventConverterTests.cs" />
-    <Compile Include="EDDN\EventSchemaValidatorTests.cs" />
-    <Compile Include="EDSM\EdsmApiFacadeTests.cs" />
-    <Compile Include="EDSM\EdsmEventConverterTests.cs" />
-    <Compile Include="UI\ClickOnceAutorunManagerTests.cs" />
-    <Compile Include="UI\DataPathManagerTests.cs" />
-    <Compile Include="UI\FileSettingsStorageTests.cs" />
-    <Compile Include="INARA\InaraEventConverterTests.cs" />
-    <Compile Include="INARA\InaraIntegrationTests.cs" />
-    <Compile Include="Utility\TempDirPathManager.cs" />
-    <Compile Include="Utility\TestCredentials.cs" />
-    <Compile Include="Controller\JournalMonitorTests.cs" />
-    <Compile Include="Controller\LogBurstPlayerTests.cs" />
-    <Compile Include="Controller\LogEnumeratorTests.cs" />
-    <Compile Include="Controller\LogEventConverterTests.cs" />
-    <Compile Include="LoggingTimerTests.cs" />
-    <Compile Include="Controller\PlayerStateRecorderTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controller\SavedGamesDirectoryHelperTests.cs" />
-    <Compile Include="UI\SingleLaunchTests.cs" />
-    <Compile Include="UI\TrayIconControllerTests.cs" />
-    <Compile Include="Utility\TestDirectoryProvider.cs" />
-    <Compile Include="Utility\TestDeveloperTools.cs" />
-    <Compile Include="Utility\TestEventSource.cs" />
-    <Compile Include="Utility\JsonComparer.cs" />
+    <ProjectReference Include="..\Controller\DW.ELA.Controller.csproj" />
+    <ProjectReference Include="..\DW.ELA.Plugin.EDDN\DW.ELA.Plugin.EDDN.csproj" />
+    <ProjectReference Include="..\DW.ELA.Utility\DW.ELA.Utility.csproj" />
+    <ProjectReference Include="..\EliteLogAgent\EliteLogAgent.csproj" />
+    <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj" />
+    <ProjectReference Include="..\Plugin.EDSM\DW.ELA.Plugin.EDSM.csproj" />
+    <ProjectReference Include="..\Plugin.Inara\DW.ELA.Plugin.Inara.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Controller\DW.ELA.Controller.csproj">
-      <Project>{14C53350-191B-4367-BEC4-7B749E7B1EEB}</Project>
-      <Name>DW.ELA.Controller</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DW.ELA.Plugin.EDDN\DW.ELA.Plugin.EDDN.csproj">
-      <Project>{A9E8BE2A-1256-4933-AC2C-C2CE7AB26900}</Project>
-      <Name>DW.ELA.Plugin.EDDN</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DW.ELA.Utility\DW.ELA.Utility.csproj">
-      <Project>{93DCDB11-335D-400C-BD87-554A0C1E2CEE}</Project>
-      <Name>DW.ELA.Utility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EliteLogAgent\EliteLogAgent.csproj">
-      <Project>{49BDB0D0-0C0A-4E83-AF13-A92DC6D2D608}</Project>
-      <Name>EliteLogAgent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj">
-      <Project>{FD518ED2-7A6E-42F7-8C90-603235C1FEE6}</Project>
-      <Name>DW.ELA.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plugin.EDSM\DW.ELA.Plugin.EDSM.csproj">
-      <Project>{CF1A7347-AD57-49B2-BA8E-7390B195A4E8}</Project>
-      <Name>DW.ELA.Plugin.EDSM</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plugin.Inara\DW.ELA.Plugin.Inara.csproj">
-      <Project>{6F64B299-6A1D-4F4A-9BD6-911634A9F02F}</Project>
-      <Name>DW.ELA.Plugin.Inara</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="CannedEvents.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Moq">
-      <Version>4.13.1</Version>
-    </PackageReference>
-    <PackageReference Include="morelinq">
-      <Version>3.3.2</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit">
-      <Version>3.12.0</Version>
-    </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter">
-      <Version>3.16.1</Version>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="System.Reactive">
-      <Version>4.4.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe">
-      <Version>4.7.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

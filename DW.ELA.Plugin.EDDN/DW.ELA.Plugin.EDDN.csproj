@@ -1,121 +1,15 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A9E8BE2A-1256-4933-AC2C-C2CE7AB26900}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DW.ELA.Plugin.EDDN</RootNamespace>
-    <AssemblyName>DW.ELA.Plugin.EDDN</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <LangVersion>8.0</LangVersion>
-    <NullableContextOptions>enable</NullableContextOptions>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Net" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <ProjectReference Include="..\Controller\DW.ELA.Controller.csproj" />
+    <ProjectReference Include="..\DW.ELA.Utility\DW.ELA.Utility.csproj" />
+    <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalSuppressions.cs">
-      <Link>GlobalSuppressions.cs</Link>
-    </Compile>
-    <Compile Include="EddnSettingsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="EddnSettingsControl.Designer.cs">
-      <DependentUpon>EddnSettingsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\Commodity.cs" />
-    <Compile Include="Model\CommodityEvent.cs" />
-    <Compile Include="EddnApiFacade.cs" />
-    <Compile Include="Model\CommodityMessage.cs" />
-    <Compile Include="Model\Economy.cs" />
-    <Compile Include="Model\EddnEvent.cs" />
-    <Compile Include="EddnEventConverter.cs" />
-    <Compile Include="EddnPlugin.cs" />
-    <Compile Include="EddnSettings.cs" />
-    <Compile Include="EventSchemaValidator.cs" />
-    <Compile Include="IEddnApiFacade.cs" />
-    <Compile Include="EddnJournalEvent.cs" />
-    <Compile Include="Model\OutfittingEvent.cs" />
-    <Compile Include="Model\OutfittingMessage.cs" />
-    <Compile Include="Model\ShipyardEvent.cs" />
-    <Compile Include="Model\ShipyardMessage.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <EmbeddedResource Include="EddnSettingsControl.resx">
-      <DependentUpon>EddnSettingsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Schemas\blackmarket-v1.0.json" />
-    <EmbeddedResource Include="Schemas\commodity-v3.0.json" />
-    <EmbeddedResource Include="Schemas\journal-v1.0.json" />
-    <EmbeddedResource Include="Schemas\outfitting-v2.0.json" />
-    <EmbeddedResource Include="Schemas\shipyard-v2.0.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Controller\DW.ELA.Controller.csproj">
-      <Project>{14C53350-191B-4367-BEC4-7B749E7B1EEB}</Project>
-      <Name>DW.ELA.Controller</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Interfaces\DW.ELA.Interfaces.csproj">
-      <Project>{fd518ed2-7a6e-42f7-8c90-603235c1fee6}</Project>
-      <Name>DW.ELA.Interfaces</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DW.ELA.Utility\DW.ELA.Utility.csproj">
-      <Project>{93DCDB11-335D-400C-BD87-554A0C1E2CEE}</Project>
-      <Name>DW.ELA.Utility</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Castle.Core">
-      <Version>4.4.0</Version>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>12.0.3</Version>
-    </PackageReference>
-    <PackageReference Include="NJsonSchema">
-      <Version>10.1.12</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.7.0</Version>
-    </PackageReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
 </Project>

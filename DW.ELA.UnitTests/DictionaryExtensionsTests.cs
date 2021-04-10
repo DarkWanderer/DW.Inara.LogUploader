@@ -8,20 +8,6 @@
     public class DictionaryExtensionsTests
     {
         [Test]
-        public void GetOrDefaultShouldReturnValue()
-        {
-            string result = GetTestDictionary().GetValueOrDefault("A");
-            Assert.AreEqual("1", result);
-        }
-
-        [Test]
-        public void GetOrDefaultShouldReturnNull()
-        {
-            string result = GetTestDictionary().GetValueOrDefault("D");
-            Assert.IsNull(result);
-        }
-
-        [Test]
         public void AddIfNotNullShouldAdd()
         {
             var dictionary = GetTestDictionary();
