@@ -29,7 +29,7 @@ install:
 - cmd: nuget install -ExcludeVersion ReportGenerator
 
 build_script:
-- msbuild EliteLogAgent\EliteLogAgent.csproj /t:Publish /p:PublishProfile=ClickOnceProfile /p:Platform="Any CPU" /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
+- msbuild EliteLogAgent\EliteLogAgent.csproj /t:Publish /p:PublishProfile=ClickOnceProfile /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
 
 after_build:
 - cmd: mkdir portable
