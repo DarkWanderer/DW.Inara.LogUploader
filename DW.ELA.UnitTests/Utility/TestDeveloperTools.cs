@@ -2,13 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
     using System.Linq;
-    using DW.ELA.Controller;
-    using DW.ELA.Interfaces;
-    using DW.ELA.LogModel;
     using DW.ELA.Utility.Json;
-    using MoreLinq;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
@@ -22,12 +17,12 @@
         public static void ToolPrepareCannedEvents()
         {
             var eventExamples = Enumerable.Empty<JObject>()
-                .Concat(TestEventSource.CannedEventsRaw)
-                .Concat(TestEventSource.LocalBetaEvents)
-                .Concat(TestEventSource.LocalEventsRaw)
-                .Concat(TestEventSource.LocalStaticEvents)
-                .ExtractSamples()
-                .ToHashSet();
+                                          .Concat(TestEventSource.CannedEventsRaw)
+                                          .Concat(TestEventSource.LocalBetaEvents)
+                                          .Concat(TestEventSource.LocalEventsRaw)
+                                          .Concat(TestEventSource.LocalStaticEvents)
+                                          .ExtractSamples()
+                                          .ToHashSet();
 
             string eventsString = string.Join("\n", eventExamples);
             Assert.IsNotEmpty(eventsString);

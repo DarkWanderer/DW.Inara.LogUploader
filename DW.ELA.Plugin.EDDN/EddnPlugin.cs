@@ -19,7 +19,6 @@
 
         private readonly IEddnApiFacade apiFacade;
         private readonly EddnEventConverter eventConverter;
-        private readonly EventSchemaValidator schemaManager = new EventSchemaValidator();
         private readonly ConcurrentQueue<JObject> lastPushedEvents = new ConcurrentQueue<JObject>(); // stores last few events to check duplicates
         private readonly ISettingsProvider settingsProvider;
         private string CurrentCommanderName = "Unknown commander";

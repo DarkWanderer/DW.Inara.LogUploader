@@ -12,22 +12,20 @@
     [TestFixture]
     public class EddnEventConverterTests
     {
-        private readonly EventSchemaValidator validator = new EventSchemaValidator();
+        //[Test]
+        //[Parallelizable]
+        //[TestCaseSource(typeof(TestEventSource), nameof(TestEventSource.CannedEvents))]
+        //public void EddnConverterShouldConvertAndValidate(JournalEvent e)
+        //{
+        //    var recorderMock = GetRecorderMock();
 
-        [Test]
-        [Parallelizable]
-        [TestCaseSource(typeof(TestEventSource), nameof(TestEventSource.CannedEvents))]
-        public void EddnConverterShouldConvertAndValidate(JournalEvent e)
-        {
-            var recorderMock = GetRecorderMock();
-
-            var eventConverter = new EddnEventConverter(recorderMock) { MaxAge = TimeSpan.FromDays(5000) };
-            var result = eventConverter.Convert(e, TestCredentials.UserName).ToList();
-            Assert.NotNull(result);
-            CollectionAssert.AllItemsAreInstancesOfType(result, typeof(EddnEvent));
-            foreach (var @event in result)
-                Assert.IsTrue(validator.ValidateSchema(@event), "Event {0} should have validated", e.Event);
-        }
+        //    var eventConverter = new EddnEventConverter(recorderMock) { MaxAge = TimeSpan.FromDays(5000) };
+        //    var result = eventConverter.Convert(e, TestCredentials.UserName).ToList();
+        //    Assert.NotNull(result);
+        //    CollectionAssert.AllItemsAreInstancesOfType(result, typeof(EddnEvent));
+        //    foreach (var @event in result)
+        //        Assert.IsTrue(validator.ValidateSchema(@event), "Event {0} should have validated", e.Event);
+        //}
 
         [Test]
         [Parallelizable]

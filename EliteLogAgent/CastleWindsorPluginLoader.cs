@@ -59,7 +59,7 @@
             try
             {
                 container.Register(Classes
-                    .FromThisAssembly()
+                    .FromAssembly(Assembly.GetExecutingAssembly())
                     .BasedOn<IPlugin>()
                     .WithService
                     .FromInterface()

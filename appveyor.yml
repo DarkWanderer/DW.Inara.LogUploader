@@ -1,4 +1,4 @@
-version: 1.3.4.{build}
+version: 1.4.0.{build}
 image: Visual Studio 2019
 configuration: Release
 platform: Any CPU
@@ -8,7 +8,6 @@ skip_branch_with_pr: true
 
 cache:
   - packages -> **\packages.config
-  - ILMerge -> appveyor.yml
   - OpenCover -> appveyor.yml
   - ReportGenerator -> appveyor.yml
   - coverage-history -> appveyor.yml
@@ -25,39 +24,28 @@ assembly_info:
   assembly_informational_version: $(appveyor_build_version)
 
 install:
-- cmd: nuget restore
-- cmd: nuget install -ExcludeVersion ILMerge -Version 3.0.21
+- cmd: dotnet restore
 - cmd: nuget install -ExcludeVersion OpenCover
 - cmd: nuget install -ExcludeVersion ReportGenerator
 
 build_script:
-- msbuild EliteLogAgent.sln /verbosity:minimal /m /target:Rebuild /p:Configuration=Release /p:Platform="Any CPU" /p:PublishProfile=Release /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
+- msbuild EliteLogAgent\EliteLogAgent.csproj /t:Publish /p:PublishProfile=EliteLogAgent\Properties\PublishProfiles\ClickOnceProfile.pubxml /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION%
 
 after_build:
-- cmd: mkdir portable
-- .\ILMerge\tools\net452\ilmerge.exe /ndebug /wildcards /out:portable\EliteLogAgent.exe EliteLogAgent\bin\Release\EliteLogAgent.exe EliteLogAgent\bin\Release\*.dll
-- 7z a ELA.Portable.%APPVEYOR_BUILD_VERSION%.zip %CD%\portable\EliteLogAgent.exe
+- 7z a ELA.Portable.%APPVEYOR_BUILD_VERSION%.zip "%CD%\EliteLogAgent\bin\Any CPU\Release\net5.0-windows\publish\EliteLogAgent.exe"
 - ps: Push-AppveyorArtifact "ELA.Portable.$env:APPVEYOR_BUILD_VERSION.zip" -DeploymentName Portable
 
 test_script:
-- .\OpenCover\tools\OpenCover.Console.exe -returntargetcode -register:user -target:"nunit3-console.exe" -targetargs:"DW.ELA.UnitTests\bin\Release\DW.ELA.UnitTests.dll" -filter:"+[*]* -[*]NUnit* -[Moq*]*" -excludebyattribute:NUnit.Framework.ExplicitAttribute -output:"coverage.xml"
+- dotnet test --configuration Release --test-adapter-path:. --logger:Appveyor
 
-after_test:
-- ps: ReportGenerator\tools\net47\ReportGenerator.exe -reports:coverage.xml -targetdir:coverage-report -historydir:coverage-history -reporttypes:HTML -verbosity:Info -assemblyfilters:"-Excluded MoreLinq.*"
-- 7z a coverage.zip coverage.xml coverage-report/*
-- ps: Push-AppveyorArtifact coverage.zip -DeploymentName Coverage
-
+artifacts:
+- path: EliteLogAgent\bin\Any CPU\Release\net5.0-windows\publish
+  name: ClickOnce
 
 for:
 - branches:
     only: 
     - prod
-  build_script:
-  - ps: Import-PfxCertificate -FilePath EliteLogAgent\code-signing.pfx -CertStoreLocation Cert:\CurrentUser\My -Password $(ConvertTo-SecureString "$env:PFX_PASSWORD" -AsPlainText -Force)
-  - msbuild EliteLogAgent.sln /verbosity:minimal /m /target:Rebuild;Publish /p:Configuration=Release /p:Platform="Any CPU" /p:PublishProfile=Release /p:SignManifests=true /p:ApplicationVersion=%APPVEYOR_BUILD_VERSION% /p:MinimumRequiredVersion=%APPVEYOR_BUILD_VERSION%
-  artifacts:
-  - path: EliteLogAgent\bin\Release\app.publish
-    name: Clickonce
   deploy:
   - provider: AzureBlob
     artifact: Clickonce

@@ -39,7 +39,7 @@
             using (new LoggingTimer("Making request to " + baseUrl))
             {
                 var response = await client.PostAsync(baseUrl, httpContent);
-                return await ThrowIfErrorCode(response).Content.ReadAsStringAsync();
+                return await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
             }
         }
 
@@ -54,7 +54,7 @@
             using (new LoggingTimer("Making request to " + baseUrl))
             {
                 var response = await client.PostAsync(baseUrl, httpContent);
-                return await ThrowIfErrorCode(response).Content.ReadAsStringAsync();
+                return await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
             }
         }
 
@@ -66,15 +66,8 @@
             using (new LoggingTimer("Making request to " + url))
             {
                 var response = await client.GetAsync(url);
-                return await ThrowIfErrorCode(response).Content.ReadAsStringAsync();
+                return await response.EnsureSuccessStatusCode().Content.ReadAsStringAsync();
             }
-        }
-
-        private HttpResponseMessage ThrowIfErrorCode(HttpResponseMessage response)
-        {
-            if (!response.IsSuccessStatusCode)
-                throw new HttpException(Convert.ToInt32(response.StatusCode), response.ReasonPhrase);
-            return response;
         }
 
         private void ThrowIfQuotaExceeded()
